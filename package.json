@@ -4,49 +4,123 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve --mode development",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "start": "webpack serve --env development",
+    "dev": "webpack --env development",
+    "build": "webpack --env production",
+    "dll": "webpack --mode production --config config/webpack.vendor.js",
+    "create": "node config/create.js",
+    "lint": "eslint src --fix --ext .ts,.tsx"
   },
   "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-      "ecmaVersion": 11,
-      "sourceType": "module"
+      "ecmaVersion": 9,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
     },
     "env": {
       "browser": true
     },
     "extends": [
-      "eslint:recommended"
-    ]
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "indent": [
+        "error",
+        2
+      ],
+      "linebreak-style": [
+        "error",
+        "windows"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "never"
+      ],
+      "keyword-spacing": [
+        "error",
+        {
+          "after": true
+        }
+      ]
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
   },
   "eslintIgnore": [
+    "config",
     "dist",
     "node_modules",
     "*.js"
   ],
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 80,
+    "endOfLine": "crlf"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "dependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
+    "@types/jest": "^26.0.20",
     "babel-loader": "^8.2.2",
+    "babel-plugin-transform-dynamic-import-default": "^0.0.3",
+    "clean-webpack-plugin": "^3.0.0",
+    "compression-webpack-plugin": "^7.1.2",
     "css-loader": "^5.0.1",
     "html-loader": "^1.3.2",
     "html-webpack-plugin": "^4.5.1",
+    "mini-css-extract-plugin": "^1.3.4",
+    "mobx": "^6.0.4",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
     "os": "^0.1.1",
     "postcss-loader": "^4.1.0",
+    "purgecss-webpack-plugin": "^4.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hot-loader": "^4.13.0",
     "style-loader": "^2.0.0",
     "thread-loader": "^3.0.1",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
     "webpack": "^5.16.0",
     "webpack-cli": "^4.4.0",
     "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3",
     "workbox-webpack-plugin": "^6.0.2"
   },
   "devDependencies": {
+    "@types/node": "^14.14.22",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
     "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-webpack-plugin": "^2.4.3"
   }
 }

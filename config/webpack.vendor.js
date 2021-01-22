@@ -1,12 +1,12 @@
 const path = require('path')
 const webpack = require('webpack')
 const CompressionPlugin = require('compression-webpack-plugin')
+const utils = require('./utils.js')
 
-// dll文件存放的目录
-const dllPath = 'public/vendor'
+const dllPath = '../public/vendor'
 
 // const vendorVue = ['vue', 'vue-router', 'vuex', 'vuex-persistedstate']
-const vendorReact = ['react', 'react-dom']
+const vendorReact = ['react', 'react-dom', 'mobx']
 
 module.exports = {
   entry: {
@@ -15,11 +15,11 @@ module.exports = {
     vendorReact,
   },
   output: {
-    path: path.join(__dirname, dllPath),
+    path: utils.resolve(dllPath),
     filename: '[name].dll.js',
     // vendor.dll.js中暴露出的全局变量名
     // 保持与 webpack.DllPlugin 中名称一致
-    library: '[name]_[hash]',
+    library: '[name]',
   },
   plugins: [
     // 清除之前的dll文件
@@ -34,7 +34,7 @@ module.exports = {
     new webpack.DllPlugin({
       path: path.join(__dirname, dllPath, '[name]-manifest.json'),
       // 保持与 output.library 中名称一致
-      name: '[name]_[hash]',
+      name: '[name]',
       context: process.cwd(),
     }),
     new CompressionPlugin({
