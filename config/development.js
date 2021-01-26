@@ -1,6 +1,10 @@
 const webpack = require('webpack')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
 
 const utils = require('./utils.js')
+const paths = require('./paths.js')
 
 module.exports = {
   mode: 'development',
@@ -33,5 +37,9 @@ module.exports = {
   plugins: [
     //热更新
     new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
+    new CaseSensitivePathsPlugin(),
+    // 缺失模块，安装后无需重启
+    new WatchMissingNodeModulesPlugin(paths.appNodeModules),
   ],
 }

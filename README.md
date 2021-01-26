@@ -2,7 +2,7 @@
 
 - babel
 - eslint
-- html-loader
+- html-webpack-plugin
 - thread-loader
 - css-loader style-loader postcss-loader
 - source-map

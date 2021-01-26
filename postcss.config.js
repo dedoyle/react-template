@@ -1,5 +1,14 @@
+const isEnvDevelopment = process.env.NODE_ENV === 'development'
 module.exports = {
+  ident: 'postcss',
   plugins: [
-    require('autoprefixer') //自动添加css前缀
-  ]
+    require('postcss-flexbugs-fixes'),
+    require('postcss-preset-env')({
+      autoprefixer: {
+        flexbox: 'no-2009',
+      },
+      stage: 3,
+    }),
+  ],
+  sourceMap: isEnvDevelopment,
 }
