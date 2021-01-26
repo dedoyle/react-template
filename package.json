@@ -19,7 +19,7 @@
   },
   "eslintIgnore": [
     "config",
-    "dist",
+    "build",
     "node_modules",
     "*.js"
   ],

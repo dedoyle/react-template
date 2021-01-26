@@ -7,13 +7,14 @@ const TerserPlugin = require('terser-webpack-plugin')
 const PurgecssPlugin = require('purgecss-webpack-plugin')
 
 const utils = require('./utils.js')
+const paths = require('./paths')
 
 module.exports = {
   mode: 'production',
   // 留空，none 打包后的代码
   devtool: 'none',
   output: {
-    path: utils.resolve('../dist'),
+    path: paths.appBuild,
     // 包名称
     filename: 'js/[name].[contenthash:8].js',
     // 块名，公共块名(非入口)
@@ -21,7 +22,7 @@ module.exports = {
     // 打包生成的 index.html 文件里面引用资源的前缀
     // 也为发布到线上资源的 URL 前缀
     // 使用的是相对路径，默认为 ''
-    publicPath: './',
+    publicPath: paths.publicUrlOrPath,
   },
   optimization: {
     // 设置为 true, 一个chunk打包后就是一个文件，一个chunk对应`一些js css 图片`等
@@ -38,7 +39,6 @@ module.exports = {
     ],
   },
   plugins: [
-    // 删除 dist 目录
     new CleanWebpackPlugin({
       // verbose Write logs to console.
       verbose: false, //开启在控制台输出信息
@@ -48,7 +48,7 @@ module.exports = {
       chunkFilename: 'css/[name].[contenthash:8].css',
     }),
     new PurgecssPlugin({
-      paths: utils.getPurecssPath('../src'),
+      paths: paths.appSrc,
     }),
     new CompressionPlugin({
       test: /\.(js|css)$/i,

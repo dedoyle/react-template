@@ -3,20 +3,19 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
 
-const utils = require('./utils.js')
 const paths = require('./paths.js')
 
 module.exports = {
   mode: 'development',
   output: {
-    path: utils.resolve('../dist'),
+    path: paths.appBuild,
     // 包名称
     filename: 'js/[name].js',
   },
   // 原始源代码（仅限行）
   devtool: 'cheap-module-source-map',
   devServer: {
-    // contentBase: utils.resolve('../dist'),
+    // contentBase: paths.appBuild,
     publicPath: '/', // 此路径下的打包文件可在浏览器中访问
     port: '3000',
     overlay: true, // 浏览器页面上显示错误

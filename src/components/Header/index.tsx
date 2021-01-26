@@ -1,12 +1,17 @@
 import React from 'react'
 // import classNames from 'classnames'
 // import PropTypes from 'prop-types'
-// import styles from './index.module.less'
+import styles from './index.less'
 
-const Header = () => {
+interface Props {
+  name: string
+  color: string
+}
+
+const Header: React.FC<Props> = ({ name, color }: Props) => {
   return (
-    <div>
-      <div>Header</div>
+    <div className={styles.header} style={{ color }}>
+      <div>Header {name}</div>
     </div>
   )
 }
